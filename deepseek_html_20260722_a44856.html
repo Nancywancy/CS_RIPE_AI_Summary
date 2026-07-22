@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI + Agent · Intelligence Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 32px 28px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            margin-bottom: 28px;
+            border: 1px solid #e5e5ea;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .subhead {
+            font-size: 20px;
+            font-weight: 400;
+            color: #6e6e73;
+            margin-bottom: 6px;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            color: #6e6e73;
+            max-width: 90%;
+            border-left: 3px solid #d2d2d7;
+            padding-left: 16px;
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+            color: #1d1d1f;
+        }
+
+        .steps {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .step-item {
+            flex: 1;
+            min-width: 120px;
+            background: #f8f8fa;
+            border-radius: 14px;
+            padding: 18px 16px;
+            text-align: center;
+            border: 1px solid #e5e5ea;
+        }
+
+        .step-item .icon {
+            font-size: 26px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .step-item .label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1d1d1f;
+        }
+
+        .step-item .desc {
+            font-size: 13px;
+            color: #6e6e73;
+            margin-top: 2px;
+        }
+
+        .arrow-symbol {
+            font-size: 22px;
+            color: #aeaeb2;
+            font-weight: 300;
+            padding: 0 2px;
+        }
+
+        .ab-grid {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .ab-col {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ab-col-header {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border-left: 4px solid;
+        }
+
+        .ab-col-header .top-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .ab-col-header .letter {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1d1d1f;
+        }
+
+        .ab-col-header .type-label {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .ab-col-header .ab-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .ab-col-header .ab-sub-large {
+            font-size: 17px;
+            font-weight: 400;
+            padding-left: 4px;
+            color: #1d1d1f;
+            opacity: 0.75;
+        }
+
+        .ab-col-header.a-blue {
+            background: #eef4fc;
+            border-left-color: #0077cc;
+        }
+
+        .ab-col-header.a-blue .type-label {
+            color: #0077cc;
+        }
+
+        .ab-col-header.b-green {
+            background: #eef7f0;
+            border-left-color: #2b8c4a;
+        }
+
+        .ab-col-header.b-green .type-label {
+            color: #2b8c4a;
+        }
+
+        .collapsible-card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e5e5ea;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .collapsible-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .collapsible-card:hover {
+            border-color: #b0b0b8;
+        }
+
+        .card-header {
+            padding: 18px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .card-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .card-header-left .title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .card-header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 11px;
+            font-weight: 500;
+            background: #f0f0f2;
+            color: #3a3a3c;
+            padding: 2px 12px;
+            border-radius: 12px;
+            border: 1px solid #e5e5ea;
+        }
+
+        .expand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .expand-hint {
+            font-size: 12px;
+            color: #8e8e93;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .expand-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e8e8ed;
+            color: #3a3a3c;
+            font-size: 16px;
+            font-weight: 300;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+            border: 1px solid #d2d2d7;
+        }
+
+        .expand-btn:hover {
+            background: #d2d2d7;
+        }
+
+        .expand-btn.open {
+            transform: rotate(180deg);
+            background: #1d1d1f;
+            color: #ffffff;
+            border-color: #1d1d1f;
+        }
+
+        .card-img-wrapper {
+            margin: 0 20px 14px 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f8fa;
+            border: 2px dashed #d2d2d7;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .card-img-wrapper:hover {
+            opacity: 0.85;
+        }
+
+        .card-img-wrapper .card-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .card-img-wrapper .placeholder-text {
+            color: #8e8e93;
+            font-size: 13px;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        .card-img-wrapper .placeholder-text .icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 4px;
+            opacity: 0.5;
+        }
+
+        .card-img-wrapper .placeholder-text .hint {
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            cursor: pointer;
+        }
+
+        .image-modal.open {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            cursor: default;
+        }
+
+        .image-modal .close-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+
+        .card-body {
+            padding: 0 20px 20px 20px;
+            display: none;
+            border-top: 1px solid #e5e5ea;
+            padding-top: 18px;
+            flex-shrink: 0;
+        }
+
+        .card-body.open {
+            display: block;
+        }
+
+        .card-body .summary-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .card-body .summary-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 8px 0;
+        }
+
+        .card-body .summary-list li {
+            font-size: 15px;
+            color: #3a3a3c;
+            padding: 2px 0 2px 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .card-body .summary-list li::before {
+            content: "•";
+            position: absolute;
+            left: 2px;
+            color: #6e6e73;
+        }
+
+        .card-body .summary-list li strong {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .card-body .tool-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .card-body .tool-content {
+            font-size: 15px;
+            color: #3a3a3c;
+            margin-bottom: 12px;
+        }
+
+        .card-body .workflow-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .card-body .tech-pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px 4px;
+            background: #f8f8fa;
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-bottom: 14px;
+            border: 1px solid #e5e5ea;
+        }
+
+        .pipe-step {
+            background: #ffffff;
+            border: 1px solid #d2d2d7;
+            border-radius: 18px;
+            padding: 3px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #1d1d1f;
+            white-space: nowrap;
+        }
+
+        .pipe-step .emoji {
+            margin-right: 3px;
+        }
+
+        .pipe-arrow {
+            color: #aeaeb2;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 0 2px;
+        }
+
+        .card-body .process-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 2px;
+        }
+
+        .card-body .status {
+            font-size: 15px;
+            font-weight: 400;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .card-body .status .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #aeaeb2;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .card-body .status .dot.green {
+            background: #34c759;
+        }
+
+        .card-body .footnote {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed #e5e5ea;
+        }
+
+        .more-section {
+            margin-top: 40px;
+        }
+
+        .mini-grid {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .mini-card {
+            flex: 1;
+            min-width: 150px;
+            background: #f8f8fa;
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid #e5e5ea;
+        }
+
+        .mini-card .mini-title {
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .mini-card .mini-desc {
+            font-size: 15px;
+            color: #6e6e73;
+            margin-top: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #8e8e93;
+            font-size: 14px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e5ea;
+            margin-top: 6px;
+        }
+
+        .footer small {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #aeaeb2;
+        }
+
+        @media (max-width: 820px) {
+            .ab-grid {
+                flex-direction: column;
+            }
+            .ab-col {
+                min-width: 0;
+            }
+            h1 {
+                font-size: 30px;
+            }
+            .subhead {
+                font-size: 17px;
+            }
+            .card {
+                padding: 22px 16px;
+            }
+            .steps {
+                flex-direction: column;
+            }
+            .arrow-symbol {
+                transform: rotate(90deg);
+                padding: 2px 0;
+            }
+            .card-header {
+                padding: 14px 16px;
+            }
+            .card-body {
+                padding: 0 16px 16px 16px;
+            }
+            .card-img-wrapper {
+                margin: 0 16px 12px 16px;
+                min-height: 80px;
+            }
+            .tech-pipeline {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .pipe-arrow {
+                display: none;
+            }
+            .mini-grid {
+                flex-direction: column;
+            }
+            .intro-text {
+                max-width: 100%;
+                padding-left: 12px;
+            }
+            .expand-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .ab-col-header .ab-sub-large {
+                font-size: 15px;
+            }
+            .expand-hint {
+                font-size: 11px;
+            }
+            .ab-col-header .type-label,
+            .ab-col-header .ab-title {
+                font-size: 19px;
+            }
+            .image-modal {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-header {
+                flex-wrap: wrap;
+            }
+            .card-header-left .title {
+                font-size: 16px;
+            }
+            .card-header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .ab-col-header {
+                padding: 12px 14px;
+            }
+            .ab-col-header .type-label,
+            .ab-col-header .ab-title {
+                font-size: 17px;
+            }
+            .ab-col-header .ab-sub-large {
+                font-size: 14px;
+            }
+            .expand-hint {
+                display: none;
+            }
+            .card-img-wrapper {
+                min-height: 60px;
+            }
+            .image-modal {
+                padding: 12px;
+            }
+            .image-modal .close-hint {
+                font-size: 12px;
+                bottom: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ====== Header ====== -->
+        <div style="margin-bottom: 28px;">
+            <h1>AI + Agent · Intelligence Hub</h1>
+            <div class="subhead">Faster analysis, broader insights, tighter collaboration.</div>
+            <div class="intro-text">
+                MVP phase — scenarios validated, value proven. Next: iterate &amp; scale.
+            </div>
+        </div>
+
+        <!-- ====== Core Logic: 3 Layers ====== -->
+        <div class="card">
+            <div class="section-title">How it works</div>
+            <div class="steps">
+                <div class="step-item">
+                    <span class="icon">⬇️</span>
+                    <div class="label">Data Layer</div>
+                    <div class="desc">Data auto ingestion · scheduled workflows</div>
+                </div>
+                <div class="arrow-symbol">→</div>
+                <div class="step-item">
+                    <span class="icon">⚙️</span>
+                    <div class="label">Intelligence Layer</div>
+                    <div class="desc">AI classification / tagging / summarization</div>
+                </div>
+                <div class="arrow-symbol">→</div>
+                <div class="step-item">
+                    <span class="icon">📊</span>
+                    <div class="label">Presentation Layer</div>
+                    <div class="desc">One link / Agent to access</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== A / B ====== -->
+        <div class="ab-grid">
+
+            <!-- ====== A列 ====== -->
+            <div class="ab-col">
+                <div class="ab-col-header a-blue">
+                    <div class="top-row">
+                        <span class="letter">A</span>
+                        <span class="type-label">Exploratory</span>
+                        <span class="ab-title">External Market Intelligence</span>
+                    </div>
+                    <div class="ab-sub-large">Public social data aggregation · AI-powered trend analysis</div>
+                </div>
+
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-header-left">
+                            <span class="title">📡 Cross-Platform Social Competitive Dashboard</span>
+                        </div>
+                        <div class="card-header-right">
+                            <div class="tags">
+                                <span class="tag">Full Automation</span>
+                            </div>
+                            <div class="expand-wrapper">
+                                <span class="expand-hint">click to unfold</span>
+                                <span class="expand-btn">▼</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 图1 -->
+                    <div class="card-img-wrapper" onclick="openImageModal(this.querySelector('.card-img'))">
+                        <img 
+                            src="images/dashboard-analysis.png" 
+                            alt="数据分析看板截图" 
+                            class="card-img"
+                            onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-text').style.display='block';"
+                        />
+                        <div class="placeholder-text" style="display:none;">
+                            <span class="icon">🖼️</span>
+                            数据分析看板截图
+                            <span class="hint">(special_tag 分析)</span>
+                        </div>
+                    </div>
+
+                    <!-- 图2 -->
+                    <div class="card-img-wrapper" onclick="openImageModal(this.querySelector('.card-img'))">
+                        <img 
+                            src="images/agent-qa.png" 
+                            alt="Agent 问答截图" 
+                            class="card-img"
+                            onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-text').style.display='block';"
+                        />
+                        <div class="placeholder-text" style="display:none;">
+                            <span class="icon">🖼️</span>
+                            Agent 问答截图
+                            <span class="hint">(女性主题案例检索)</span>
+                        </div>
+                    </div>
+
+                    <!-- 图3 -->
+                    <div class="card-img-wrapper" onclick="openImageModal(this.querySelector('.card-img'))">
+                        <img 
+                            src="images/dashboard-trend.png" 
+                            alt="趋势分析截图" 
+                            class="card-img"
+                            onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-text').style.display='block';"
+                        />
+                        <div class="placeholder-text" style="display:none;">
+                            <span class="icon">🖼️</span>
+                            趋势分析截图
+                            <span class="hint">(trend analysis)</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="summary-label">📋 Summary</div>
+                        <ul class="summary-list">
+                            <li><strong>Data Layer:</strong> Automatically aggregates public social content</li>
+                            <li><strong>Intelligence Layer:</strong> AI classification / tagging / summary</li>
+                            <li><strong>Presentation Layer:</strong> Dashboard + agent</li>
+                        </ul>
+                        <div class="tool-label">🛠️ Tool</div>
+                        <div class="tool-content">External: Coze ｜ Internal: VScode / Github / Copilot</div>
+
+                        <div class="workflow-label">⚙️ Automated workflow</div>
+                        <div class="tech-pipeline">
+                            <span class="pipe-step"><span class="emoji">⬇️</span>Data Auto-Ingestion</span>
+                            <span class="pipe-arrow">→</span>
+                            <span class="pipe-step"><span class="emoji">🏷️</span>AI Tagging</span>
+                            <span class="pipe-arrow">→</span>
+                            <span class="pipe-step"><span class="emoji">📊</span>Dashboard</span>
+                            <span class="pipe-arrow">→</span>
+                            <span class="pipe-step"><span class="emoji">🤖</span>Copilot Q&amp;A</span>
+                        </div>
+
+                        <div class="process-label">📌 Application process</div>
+                        <div class="status">
+                            <span class="dot"></span> Internal team trial
+                        </div>
+                        <div class="footnote">* Based on publicly available information · For internal strategic reference only</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== B列 ====== -->
+            <div class="ab-col">
+                <div class="ab-col-header b-green">
+                    <div class="top-row">
+                        <span class="letter">B</span>
+                        <span class="type-label">Applied</span>
+                        <span class="ab-title">Internal Knowledge Enablement</span>
+                    </div>
+                    <div class="ab-sub-large">Internal knowledge + Agent-based diagnostics &amp; recommendations</div>
+                </div>
+
+                <!-- B1 -->
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-header-left">
+                            <span class="title">📖 Internal Marketing Case Analyst (Agent + Web)</span>
+                        </div>
+                        <div class="card-header-right">
+                            <div class="tags">
+                                <span class="tag">Knowledge Base</span>
+                                <span class="tag">Q&amp;A</span>
+                            </div>
+                            <div class="expand-wrapper">
+                                <span class="expand-hint">click to unfold</span>
+                                <span class="expand-btn">▼</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 图1 -->
+                    <div class="card-img-wrapper" onclick="openImageModal(this.querySelector('.card-img'))">
+                        <img 
+                            src="images/internal-case-chat.png" 
+                            alt="Agent chat or dashboard1 screenshot" 
+                            class="card-img"
+                            onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-text').style.display='block';"
+                        />
+                        <div class="placeholder-text" style="display:none;">
+                            <span class="icon">🖼️</span>
+                            Agent chat or dashboard1 screenshot
+                            <span class="hint">(mkt_case_dashboard)</span>
+                        </div>
+                    </div>
+
+                    <!-- 图2 -->
+                    <div class="card-img-wrapper" onclick="openImageModal(this.querySelector('.card-img'))">
+                        <img 
+                            src="images/internal-case-overview.png" 
+                            alt="案例概览截图" 
+                            class="card-img"
+                            onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-text').style.display='block';"
+                        />
+                        <div class="placeholder-text" style="display:none;">
+                            <span class="icon">🖼️</span>
+                            案例概览截图
+                            <span class="hint">(case overview)</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="summary-label">📋 Summary</div>
+                        <ul class="summary-list">
+                            <li><strong>Data Layer:</strong> Existing database of dealer mkt campaign</li>
+                            <li><strong>Intelligence Layer:</strong> Copilot prompt engineering</li>
+                            <li><strong>Presentation Layer:</strong> Web link + Agent</li>
+                        </ul>
+                        <div class="tool-label">🛠️ Tool</div>
+                        <div class="tool-content">Internal: VScode / Github / Copilot</div>
+
+                        <div class="process-label">📌 Application process</div>
+                        <div class="status">
+                            <span class="dot"></span> Internal team trial
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B2 -->
+                <div class="collapsible-card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <div class="card-header-left">
+                            <span class="title">🔍 CSI Performance Analyst (Agent)</span>
+                        </div>
+                        <div class="card-header-right">
+                            <div class="tags">
+                                <span class="tag">Knowledge Base</span>
+                                <span class="tag">Q&amp;A</span>
+                            </div>
+                            <div class="expand-wrapper">
+                                <span class="expand-hint">click to unfold</span>
+                                <span class="expand-btn">▼</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-img-wrapper" onclick="openImageModal(this.querySelector('.card-img'))">
+                        <img 
+                            src="images/csi-analysis.png" 
+                            alt="CSI analysis interface screenshot" 
+                            class="card-img"
+                            onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-text').style.display='block';"
+                        />
+                        <div class="placeholder-text" style="display:none;">
+                            <span class="icon">🖼️</span>
+                            CSI analysis interface screenshot
+                            <span class="hint">(CSI performance dashboard)</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="summary-label">📋 Summary</div>
+                        <ul class="summary-list">
+                            <li><strong>Data Layer:</strong> Existing CSI performance data</li>
+                            <li><strong>Intelligence Layer:</strong> Copilot prompt engineering</li>
+                            <li><strong>Presentation Layer:</strong> Agent</li>
+                        </ul>
+                        <div class="tool-label">🛠️ Tool</div>
+                        <div class="tool-content">Internal: Copilot</div>
+
+                        <div class="process-label">📌 Application process</div>
+                        <div class="status">
+                            <span class="dot green"></span> Regional team trial
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====== More Explorations ====== -->
+        <div class="card more-section">
+            <div class="section-title">🔭 More use cases in exploration</div>
+            <div class="mini-grid">
+                <div class="mini-card">
+                    <div class="mini-title">🔋 EQC Battery Tracking Dashboard</div>
+                    <div class="mini-desc">Real-time battery status dashboard · cross-team collaboration</div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-title">🏆 CCA Award Tracking Dashboard</div>
+                    <div class="mini-desc">Unified award progress dashboard for dealers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== Footer ====== -->
+        <div class="footer">
+            MVP phase — focused on scenario validation. Next steps: iterate based on feedback and scale coverage.
+            <small>External data dashboards are based on publicly available information for trend analysis only.</small>
+        </div>
+
+    </div>
+
+    <!-- ====== 图片放大模态框 ====== -->
+    <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+        <img id="modalImage" src="" alt="放大预览" />
+        <span class="close-hint">点击任意处关闭 · ESC</span>
+    </div>
+
+    <script>
+        function toggleCard(headerEl) {
+            const card = headerEl.closest('.collapsible-card');
+            if (!card) return;
+            const body = card.querySelector('.card-body');
+            const btn = card.querySelector('.expand-btn');
+            if (body) {
+                body.classList.toggle('open');
+            }
+            if (btn) {
+                btn.classList.toggle('open');
+            }
+        }
+
+        function openImageModal(imgElement) {
+            if (!imgElement || !imgElement.src) return;
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imgElement.src;
+            modalImg.alt = imgElement.alt || '放大预览';
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+
+        document.getElementById('modalImage').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    </script>
+
+</body>
+</html>
